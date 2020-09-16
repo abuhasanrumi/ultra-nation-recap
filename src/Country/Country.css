@@ -1,0 +1,17 @@
+.container {
+    margin: 0 auto;
+}
+
+.singleCountry {
+    height: 330px;
+    width: 250px;
+    padding: 15px;
+    background-color:#EEDFDE;
+    margin: 15px;
+    border-radius: 5px;
+}
+
+.singleCountry img {
+    max-width: 200px;
+    max-height: 130px;
+}

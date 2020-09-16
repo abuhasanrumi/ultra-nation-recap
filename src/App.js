@@ -1,24 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
+import Added from './Added/Added';
 import './App.css';
+import Country from './Country/Country';
 
 function App() {
+  const[country, setCountry] = useState([])
+  const[added, setAdded] = useState([])
+
+  useEffect( () => {
+    fetch('https://restcountries.eu/rest/v2/all')
+    .then(res => res.json())
+    .then(data => setCountry(data))
+  }, [])
+
+  const handleClick = (country) => {
+    console.log("Clicked", country)
+    const newAdded = [...added, country]
+    setAdded(newAdded)
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Added Countries: {added.length}</h1>
+      
+      <Added added={added}></Added>
+      <div className="container">
+        {
+          country.map(country => <Country handleClick={handleClick} key={country.alpha3Code} country={country}></Country>)
+        }
+      </div>
     </div>
   );
 }
